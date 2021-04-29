@@ -14,7 +14,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
@@ -22,6 +22,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+
+import Bookview from './components/Bookview';
 
 const drawerWidth = 350;
 
@@ -154,9 +156,9 @@ export default function App(props) {
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <SearchIcon />
           </IconButton>
-          <Typography variant="h6">Thirukkural Search / திருக்குறள் தேடல்</Typography>
+          <Typography variant="h6">{open ? "Thirukkural Search / திருக்குறள் தேடல்" : "Thirukkural Book / திருக்குறள் நூல்"}</Typography>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -197,8 +199,9 @@ export default function App(props) {
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
-        <Typography paragraph>
+        <Bookview />
+        {/* <div className={classes.drawerHeader} /> */}
+        {/* <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
           facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
@@ -220,7 +223,7 @@ export default function App(props) {
           tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        </Typography> */}
       </main>
       <ScrollTop {...props}>
         <Fab color="secondary" size="small" aria-label="scroll back to top">
