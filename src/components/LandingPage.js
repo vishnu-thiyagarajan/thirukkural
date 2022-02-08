@@ -19,6 +19,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import Switch from '@mui/material/Switch';
+import Pagination from '@mui/material/Pagination';
 
 const drawerWidth = 300;
 
@@ -82,20 +84,42 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 const options = [
-  { display: "மு.வரதராசன்", key: "mv" },
-  { display: "சாலமன் பாப்பையா", key: "sp" },
-  { display: "மு.கருணாநிதி", key: "mk" },
+  { displayTamil: "மு.வரதராசன்", key: "mv" },
+  { displayTamil: "சாலமன் பாப்பையா", key: "sp" },
+  { displayTamil: "மு.கருணாநிதி", key: "mk" },
 ];
+const tamilPauls = ["அறத்துப்பால்", "பொருட்பால்", "காமத்துப்பால்"];
+const englishPauls = ["Virtue", "Wealth", "Love"];
+
 export default function LandingPage() {
-  const [section, setSection] = useState(null);
-  const [path, setPath] = useState(null);
-  const [tamilExp, setTamilExp] = useState(["mv"]);
+  const listofkural = thirukkural["kural"];
+  const [eng, setEng] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [page, setPage] = useState(1);
+  const [pauls, setPauls] = useState(tamilPauls);
+  const [section, setSection] = useState("கடவுள் வாழ்த்து");
+  const [sectionText, setSectionText] = useState("கடவுள் வாழ்த்து");
+  const [path, setPath] = useState("அறத்துப்பால் / பாயிரவியல் / கடவுள் வாழ்த்து");
+  const [Exp, setExp] = useState(["mv"]);
   const [sectionDrawer, setSectionDrawer] = useState(true);
-  const toggleDrawer = () => {
-    console.log("ca", sectionDrawer);
-    setSectionDrawer(!sectionDrawer);
+  const handleLang = ()=> {
+    setEng(!eng);
+    setPauls(!eng ? englishPauls : tamilPauls)
+    setAnchorEl(null);
+    const obj = listofkural[(page-1)*10]
+    setSection(eng ? obj.adikaram_translation : obj.adikaram_name)
+  }
+  const changePage= (e,page)=> {
+    setPage(page)
+    const obj = listofkural[(page-1)*10]
+    setSection(eng ? obj.adikaram_translation : obj.adikaram_name)
+  }
+  const toggleDrawer = () => setSectionDrawer(!sectionDrawer);
+  const openSection = (section) =>{
+    setSection(section);
+    const page = listofkural.findIndex((kural)=>[kural.adikaram_name, kural.adikaram_translation].includes(section))
+    setPage((page/10)+1)
   };
-  const openSection = (section) => setSection(section);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -105,18 +129,16 @@ export default function LandingPage() {
     setAnchorEl(null);
   };
   const handleMenu = (e) => {
-    if (tamilExp.includes(e.target.id))
-      return setTamilExp(tamilExp.filter((item) => item !== e.target.id));
-    setTamilExp([...tamilExp, e.target.id]);
+    if (Exp.includes(e.target.id))
+      return setExp(Exp.filter((item) => item !== e.target.id));
+    setExp([...Exp, e.target.id]);
   };
-  const listofkural = thirukkural["kural"];
   useEffect(() => {
-    const obj = listofkural.find((kural) => kural.adikaram_name === section);
-    if (obj)
-      setPath(
-        obj.paul_name + " / " + obj.iyal_name + " / " + obj.adikaram_name
-      );
-  }, [section, listofkural]);
+    const obj = listofkural.find((kural) => kural.adikaram_name === section || kural.adikaram_translation === section);
+    const path = eng ? obj.paul_translation + " / " + obj.iyal_translation + " / " + obj.adikaram_translation : obj.paul_name + " / " + obj.iyal_name + " / " + obj.adikaram_name
+    setPath(path);
+    setSectionText(eng ? obj.adikaram_translation : obj.adikaram_name)
+  }, [section, listofkural, eng]);
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -141,7 +163,7 @@ export default function LandingPage() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            திருக்குறள்
+            {eng ? "Thirukural" : "திருக்குறள்"}
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -150,6 +172,8 @@ export default function LandingPage() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              onFocus={()=>setSearching(true)}
+              onBlur={()=>setSearching(false)}
             />
           </Search>
           <IconButton
@@ -163,23 +187,24 @@ export default function LandingPage() {
           >
             <MoreVertIcon />
           </IconButton>
+          <Switch color="default" checked={eng} onChange={handleLang}/>
           <Menu
             id="long-menu"
             MenuListProps={{
               "aria-labelledby": "long-button",
             }}
             anchorEl={anchorEl}
-            open={open}
+            open={!eng && open}
             onClose={handleClose}
           >
             {options.map((option) => (
               <MenuItem
                 key={option.key}
-                selected={tamilExp.includes(option.key)}
+                selected={Exp.includes(option.key)}
                 id={option.key}
                 onClick={handleMenu}
               >
-                {option.display}
+                {option.displayTamil}
               </MenuItem>
             ))}
           </Menu>
@@ -202,13 +227,14 @@ export default function LandingPage() {
           <Toolbar />
           <Box sx={{ overflow: "auto" }}>
             <List component="div" disablePadding>
-              {["அறத்துப்பால்", "பொருட்பால்", "காமத்துப்பால்"].map(
+              {pauls.map(
                 (text, index) => (
                   <NestedList
                     openSection={openSection}
                     key={index}
                     text={text}
                     pl={2}
+                    eng={eng}
                   />
                 )
               )}
@@ -218,49 +244,25 @@ export default function LandingPage() {
       </Drawer>
       <Main open={sectionDrawer}>
         <Toolbar />
-        <h2>{section}</h2>
-        <h4>{path}</h4>
-        {section &&
-          listofkural.map((kural, index) => {
-            if (kural.adikaram_name !== section) return null;
-            return (
-              <Kural
-                kural={kural}
-                key={index}
-                tamilExp={tamilExp}
-                options={options}
-              />
-            );
-          })}
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        {!searching &&
+        <>
+          <h2>{sectionText}</h2>
+          <h4>{path}</h4>
+          {listofkural.slice((page-1)*10,((page-1)*10)+10).map((kural, index) => {
+              return (
+                <Kural
+                  kural={kural}
+                  key={index}
+                  Exp={Exp}
+                  eng={eng}
+                />
+              );
+            })
+          }
+          <div style={{display: "flex", justifyContent: "center" }}>
+            <Pagination count={133} page={page} onChange={changePage} siblingCount={5} color="primary" />
+          </div>
+        </>}        
       </Main>
     </Box>
   );

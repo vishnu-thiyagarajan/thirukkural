@@ -1,5 +1,6 @@
 {
   "அறத்துப்பால்": ["பாயிரவியல்", "இல்லறவியல்", "துறவறவியல்", "ஊழியல்"],
+  "Virtue": ["Prologue", "Domestic Virtue", "Ascetic Virtue", "Fate"],
   "பொருட்பால்": [
     "அரசியல்",
     "அமைச்சியல்",
@@ -9,12 +10,28 @@
     "நட்பியல்",
     "குடியியல்"
   ],
+  "Wealth": [
+    "Royalty", 
+    "Minister of State", 
+    "The Essentials of a State", 
+    "Way of Making Wealth", 
+    "The Excellence of an Army", 
+    "Friendship", 
+    "Miscellaneous"
+  ],
   "காமத்துப்பால்": ["களவியல்", "கற்பியல்"],
+  "Love": ["The Pre-marital love", "The Post-marital love"],
   "பாயிரவியல்": [
     "கடவுள் வாழ்த்து",
     "வான்சிறப்பு",
     "நீத்தார் பெருமை",
     "அறன் வலியுறுத்தல்"
+  ],
+  "Prologue" : [
+    "The Praise of God",
+    "The Blessing of Rain",
+    "The Greatness of Ascetics",
+    "Assertion of the Strength of Virtue"
   ],
   "இல்லறவியல்": [
     "இல்வாழ்க்கை",
@@ -38,6 +55,28 @@
     "ஈகை",
     "புகழ்"
   ],
+  "Domestic Virtue": [
+    "Domestic Life",
+    "The Worth of a Wife",
+    "The Wealth of Children",
+    "The Possession of Love",
+    "Hospitality",
+    "The Utterance of Pleasant Words",
+    "Gratitude",
+    "Impartiality",
+    "The Possession of Self-restraint",
+    "The Possession of Decorum",
+    "Not coveting another\"s Wife",
+    "The Possession of Patience, Forbearance",
+    "Not Envying",
+    "Not Coveting",
+    "Not Backbiting",
+    "Against Vain Speaking",
+    "Dread of Evil Deeds",
+    "Duty to Society",
+    "Giving",
+    "Renown"
+  ],
   "துறவறவியல்": [
     "அருளுடைமை",
     "புலால் மறுத்தல்",
@@ -53,7 +92,23 @@
     "மெய்யுணர்தல்",
     "அவா அறுத்தல்"
   ],
+  "Ascetic Virtue": [
+    "Compassion",
+    "Abstinence from Flesh",
+    "Penance",
+    "Imposture",
+    "The Absence of Fraud",
+    "Veracity",
+    "Restraining Anger",
+    "Not doing Evil",
+    "Not killing",
+    "Instability",
+    "Renunciation",
+    "Truth-Conciousness",
+    "Curbing of Desire"
+  ],
   "ஊழியல்": ["ஊழ்"],
+  "Fate": ["Fate"],
   "அரசியல்": [
     "இறைமாட்சி",
     "கல்வி",
@@ -81,6 +136,33 @@
     "ஆள்வினை உடைமை",
     "இடுக்கண் அழியாமை"
   ],
+  "Royalty": [
+    "The Greatness of a King",
+    "Learning",
+    "Ignorance",
+    "Hearing",
+    "The Possession of Knowledge",
+    "The Correction of Faults",
+    "Seeking the Aid of Great Men",
+    "Avoiding mean Associations",
+    "Acting after due Consideration",
+    "The Knowledge of Power",
+    "Knowing the fitting Time",
+    "Knowing the Place",
+    "Selection and Confidence",
+    "Selection and Employment",
+    "Cherishing Kinsmen",
+    "Unforgetfulness",
+    "The Right Sceptre",
+    "The Cruel Sceptre",
+    "Absence of Terrorism",
+    "Benignity",
+    "Detectives",
+    "Energy",
+    "Unsluggishness",
+    "Manly Effort",
+    "Hopefulness in Trouble"
+  ],
   "அமைச்சியல்": [
     "அமைச்சு",
     "சொல்வன்மை",
@@ -93,9 +175,24 @@
     "அவை அறிதல்",
     "அவை அஞ்சாமை"
   ],
+  "Minister of State": [
+    "The Office of Minister of state",
+    "Power of Speech",
+    "Purity in Action",
+    "Power in Action",
+    "Modes of Action",
+    "The Envoy",
+    "Conduct in the Presence of the King",
+    "The Knowledge of Indications",
+    "The Knowledge of the Council Chamber",
+    "Not to dread the Council"
+  ],
   "அரணியல்": ["நாடு", "அரண்"],
+  "The Essentials of a State": ["The Land", "The Fortification"],
   "கூழியல்": ["பொருள் செயல்வகை"],
+  "Way of Making Wealth": ["Way of Accumulating Wealth"],
   "படையில்": ["படை மாட்சி", "படைச் செருக்கு"],
+  "The Excellence of an Army":["The Excellence of an Army", "Military Spirit"],
   "நட்பியல்": [
     "நட்பு",
     "நட்பாராய்தல்",
@@ -115,6 +212,25 @@
     "சூது",
     "மருந்து"
   ],
+  "Friendship": [
+    "Friendship",
+    "Investigation in forming Friendships",
+    "Familiarity",
+    "Evil Friendship",
+    "Unreal Friendship",
+    "Folly",
+    "Ignorance(1)",
+    "Hostility",
+    "The Might of Hatred",
+    "Knowing the Quality of Hate",
+    "Enmity within",
+    "Not Offending the Great",
+    "Being led by Women",
+    "Wanton Women",
+    "Not Drinking Palm-Wine",
+    "Gambling",
+    "Medicine"
+  ],
   "குடியியல்": [
     "குடிமை",
     "மானம்",
@@ -130,15 +246,40 @@
     "இரவச்சம்",
     "கயமை"
   ],
+  "Miscellaneous":[
+    "Nobility",
+    "Honour",
+    "Greatness",
+    "Perfectness",
+    "Courtesy",
+    "Wealth without Benefaction",
+    "Shame",
+    "The Way of Maintaining the Family",
+    "Farming",
+    "Poverty",
+    "Mendicancy",
+    "The Dread of Mendicancy",
+    "Baseness"
+  ],
   "களவியல்": [
     "தகை அணங்குறுத்தல்",
-    "குறிப்பறிதல்",
+    "குறிப்பறிதல்(1)",
     "புணர்ச்சி மகிழ்தல்",
     "நலம் புனைந்து உரைத்தல்",
     "காதற் சிறப்புரைத்தல்",
     "நாணுத் துறவுரைத்தல்",
     "அலர் அறிவுறுத்தல்",
     "பிரிவு ஆற்றாமை"
+  ],
+  "The Pre-marital love": [
+    "The Pre-marital love",
+    "Recognition of the Signs ",
+    "Rejoicing in the Embrace",
+    "The Praise of her Beauty",
+    "Declaration of Love\"s special Excellence",
+    "The Abandonment of Reserve",
+    "The Announcement of the Rumour",
+    "Separation unendurable"
   ],
   "கற்பியல்": [
     "படர்மெலிந் திரங்கல்",
@@ -158,5 +299,24 @@
     "புலவி",
     "புலவி நுணுக்கம்",
     "ஊடலுவகை"
+  ],
+  "The Post-marital love": [
+    "Complainings",
+    "Eyes consumed with Grief",
+    "The Pallid Hue",
+    "The Solitary Anguish",
+    "Sad Memories",
+    "The Visions of the Night",
+    "Lamentations at Eventide",
+    "Wasting Away",
+    "Soliloquy",
+    "Reserve Overcome",
+    "Mutual Desire",
+    "The Reading of the Signs",
+    "Desire for Reunion",
+    "Expostulation with Oneself",
+    "Pouting",
+    "Feigned Anger",
+    "The Pleasures of Temporary Variance"
   ]
 }
