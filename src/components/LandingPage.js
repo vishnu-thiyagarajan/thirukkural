@@ -147,9 +147,11 @@ export default function LandingPage() {
     setSrchResult([]);
   }
   const srch = (val) => {
-    let result = []
-    srchList.forEach((curitem,index) =>  (curitem.includes(val)) && result.push(index))
-    alert(String(result));
+    val = val.toLowerCase();
+    var result = [];
+    for (var i = 0, len = srchList.length; i < len; i++) {
+      if (srchList[i].indexOf(val) !== -1) result.push(i)
+    }
     setSrchResult(result);
   }
   const startSearch = (e) => {
@@ -161,6 +163,7 @@ export default function LandingPage() {
     setSrchval("")
     setSrchResult([]);
   }
+  
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
