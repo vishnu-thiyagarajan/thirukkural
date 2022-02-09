@@ -1,5 +1,10 @@
 This project is hosted here [https://thiru-kural.netlify.app/](https://thiru-kural.netlify.app/)
 
+For Upcoming Release:
+
+Highlighting the searched value in the results
+Copying the content of couplet card to clipboard
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
