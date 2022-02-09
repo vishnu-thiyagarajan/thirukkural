@@ -85,9 +85,9 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 const options = [
-  { displayTamil: "மு.வரதராசன்", key: "mv" },
-  { displayTamil: "சாலமன் பாப்பையா", key: "sp" },
-  { displayTamil: "மு.கருணாநிதி", key: "mk" },
+  { displayTamil: "மு.வரதராசன்", key: "mv", disabled: true },
+  { displayTamil: "சாலமன் பாப்பையா", key: "sp", disabled: false },
+  { displayTamil: "மு.கருணாநிதி", key: "mk", disabled: false },
 ];
 const tamilPauls = ["அறத்துப்பால்", "பொருட்பால்", "காமத்துப்பால்"];
 const englishPauls = ["Virtue", "Wealth", "Love"];
@@ -147,16 +147,13 @@ export default function LandingPage() {
     setSrchResult([]);
   }
   const srch = (val) => {
-    const result = []
-    srchList.map((curitem,index) => {
-      if (curitem.includes(val)) result.push(index)
-      return true
-      }
-    )
+    let result = []
+    srchList.forEach((curitem,index) =>  (curitem.includes(val)) && result.push(index))
+    alert(String(result));
     setSrchResult(result);
   }
   const startSearch = (e) => {
-    if(e.key === 'Enter'){
+    if(e.key === 'Enter' || e.keyCode === 13){
       if (srchval) srch(srchval)
     }
   }
@@ -242,6 +239,7 @@ export default function LandingPage() {
                 selected={Exp.includes(option.key)}
                 id={option.key}
                 onClick={handleMenu}
+                disabled={option.disabled}
               >
                 {option.displayTamil}
               </MenuItem>
