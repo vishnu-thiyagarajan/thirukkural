@@ -21,6 +21,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import thirukkural from "../data/thirukkural.json";
 import Kural from "./Kural";
 import NestedList from "./NestedList";
+import Tooltip from '@mui/material/Tooltip';
 
 const drawerWidth = 300;
 
@@ -93,15 +94,17 @@ const englishPauls = ["Virtue", "Wealth", "Love"];
 
 export default function LandingPage() {
   const listofkural = thirukkural["kural"];
+  const srchList = listofkural.map((item)=>Object.values(item).join(' ').toLowerCase())
   const [eng, setEng] = useState(false);
-  const [searching, setSearching] = useState(false);
+  const [srchResult, setSrchResult] = useState([]);
+  const [srchval, setSrchval] = useState('');
   const [page, setPage] = useState(1);
   const [pauls, setPauls] = useState(tamilPauls);
   const [section, setSection] = useState("கடவுள் வாழ்த்து");
   const [sectionText, setSectionText] = useState("கடவுள் வாழ்த்து");
   const [path, setPath] = useState("அறத்துப்பால் / பாயிரவியல் / கடவுள் வாழ்த்து");
   const [Exp, setExp] = useState(["mv"]);
-  const [sectionDrawer, setSectionDrawer] = useState(true);
+  const [sectionDrawer, setSectionDrawer] = useState(false);
   const handleLang = ()=> {
     setEng(!eng);
     setPauls(!eng ? englishPauls : tamilPauls)
@@ -139,6 +142,28 @@ export default function LandingPage() {
     setPath(path);
     setSectionText(eng ? obj.adikaram_translation : obj.adikaram_name)
   }, [section, listofkural, eng]);
+  const handleSearch = (e) => {
+    setSrchval(e.target.value)
+    setSrchResult([]);
+  }
+  const srch = (val) => {
+    const result = []
+    srchList.map((curitem,index) => {
+      if (curitem.includes(val)) result.push(index)
+      return true
+      }
+    )
+    setSrchResult(result);
+  }
+  const startSearch = (e) => {
+    if(e.key === 'Enter'){
+      if (srchval) srch(srchval)
+    }
+  }
+  const clearSrch = ()=> {
+    setSrchval("")
+    setSrchResult([]);
+  }
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -155,7 +180,11 @@ export default function LandingPage() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            {sectionDrawer ? <CloseIcon /> : <MenuIcon />}
+            {sectionDrawer ? <CloseIcon /> : 
+            (<Tooltip title="View Sections">
+              <MenuIcon />
+            </Tooltip>)
+            }
           </IconButton>
           <Typography
             variant="h6"
@@ -172,22 +201,32 @@ export default function LandingPage() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onFocus={()=>setSearching(true)}
-              onBlur={()=>setSearching(false)}
+              onChange={handleSearch}
+              onKeyPress={startSearch}
+              value={srchval}
             />
           </Search>
-          <IconButton
-            aria-label="more"
-            id="long-button"
-            aria-controls="long-menu"
-            color="inherit"
-            aria-expanded={open ? "true" : undefined}
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            <MoreVertIcon />
-          </IconButton>
-          <Switch color="default" checked={eng} onChange={handleLang}/>
+          {srchval && (<Tooltip title="Clear Search">
+              <CloseIcon onClick={clearSrch}/>
+            </Tooltip>)
+          }
+          &nbsp;filters:&nbsp;
+          <Tooltip title="Other Tamil Explanation">
+            <IconButton
+              aria-label="more"
+              id="long-button"
+              aria-controls="long-menu"
+              color="inherit"
+              aria-expanded={open ? "true" : undefined}
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <MoreVertIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Switch Language">
+            <Switch color="default" checked={eng} onChange={handleLang}/>
+          </Tooltip>
           <Menu
             id="long-menu"
             MenuListProps={{
@@ -244,7 +283,7 @@ export default function LandingPage() {
       </Drawer>
       <Main open={sectionDrawer}>
         <Toolbar />
-        {!searching &&
+        {!srchval &&
         <>
           <h2>{sectionText}</h2>
           <h4>{path}</h4>
@@ -262,7 +301,22 @@ export default function LandingPage() {
           <div style={{display: "flex", justifyContent: "center" }}>
             <Pagination count={133} page={page} onChange={changePage} siblingCount={5} color="primary" />
           </div>
-        </>}        
+        </>}
+        {srchval &&
+          srchResult.map(indVal =>
+              <Kural
+                kural={listofkural[indVal]}
+                key={indVal}
+                Exp={Exp}
+                eng={eng}
+              />
+            )
+        }
+        {srchval &&
+          !srchResult.length && (<div style={{display: "flex", justifyContent: "center" }}>
+              <h1>Press enter to search</h1>
+            </div>)
+        }
       </Main>
     </Box>
   );

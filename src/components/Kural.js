@@ -33,7 +33,6 @@ function Kural({ kural, Exp, eng }) {
             {eng && kural["explanation"]}
             {!eng && Exp.map((exp, index) => (
               <div key={index}>
-                <br />
                 {<Chip label={options[exp]} />}
                 {kural[exp]}
               </div>
